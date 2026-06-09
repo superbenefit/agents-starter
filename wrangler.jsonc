@@ -16,5 +16,6 @@
   },
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["AdvisorAgent"] }],
   "vectorize": [{ "binding": "VECTOR_DB", "index_name": "slc-knowledge" }],
-  "r2_buckets": [{ "binding": "CONTENT_BUCKET", "bucket_name": "slc-content" }]
+  "r2_buckets": [{ "binding": "CONTENT_BUCKET", "bucket_name": "slc-content" }],
+  "worker_loaders": [{ "binding": "LOADER" }]
 }

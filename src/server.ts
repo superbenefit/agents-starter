@@ -1,12 +1,19 @@
-import { Think } from "@cloudflare/think";
+import { Think, skills } from "@cloudflare/think";
 import { createWorkersAI } from "workers-ai-provider";
 import { routeAgentRequest } from "agents";
 
 export class AdvisorAgent extends Think<Env> {
-  getModel() {
+  override getModel() {
     return createWorkersAI({ binding: this.env.AI })(
       "@cf/moonshotai/kimi-k2.6"
     );
+  }
+
+  override getSkillScriptRunner() {
+    return skills.runner({
+      loader: this.env.LOADER,
+      workspaceInstance: this.workspace
+    });
   }
 }
 
