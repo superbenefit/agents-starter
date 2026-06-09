@@ -142,3 +142,8 @@ dist
 .wrangler
 .dev.vars
 
+# Tooling
+.opencode/
+.tmp/
+tools.yaml
+
