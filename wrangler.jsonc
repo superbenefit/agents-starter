@@ -1,27 +1,20 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "agent-starter",
+  "name": "slc-advisor",
   "main": "src/server.ts",
-  "compatibility_date": "2026-03-02",
-  "compatibility_flags": ["nodejs_compat"],
-  "ai": { "binding": "AI", "remote": true },
+  "compatibility_date": "2026-04-15",
+  "compatibility_flags": ["nodejs_compat", "experimental"],
+  "observability": { "enabled": true, "head_sampling_rate": 1 },
   "assets": {
-    "directory": "./public",
-    "not_found_handling": "single-page-application",
-    "run_worker_first": ["/agents/*", "/oauth/*"]
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application"
   },
+  "ai": { "binding": "AI" },
   "durable_objects": {
-    "bindings": [
-      {
-        "class_name": "ChatAgent",
-        "name": "ChatAgent"
-      }
-    ]
+    "bindings": [{ "name": "AdvisorAgent", "class_name": "AdvisorAgent" }]
   },
-  "migrations": [
-    {
-      "new_sqlite_classes": ["ChatAgent"],
-      "tag": "v1"
-    }
-  ]
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["AdvisorAgent"] }],
+  "vectorize": [{ "binding": "VECTOR_DB", "index_name": "slc-knowledge" }],
+  "r2_buckets": [{ "binding": "CONTENT_BUCKET", "bucket_name": "slc-content" }]
 }
